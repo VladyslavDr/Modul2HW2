@@ -19,29 +19,7 @@ public class Starter
         basket.Add(products[2]);
         basket.Add(products[0]);
 
-        var num1 = new OrderService();
-        OrderService.GetAllProducts(basket.Products);
-        OrderService.GetAllPrice(basket.Products);
-        OrderService.User();
-
-        Console.Write("products: ");
-
-        foreach (var i in ProductProvider.GetArrayProducts())
-        {
-            Console.Write($"{i.Name} ");
-        }
-
-        Console.WriteLine();
-        Console.Write("choice products: ");
-
-        foreach (var i in OrderService.GetAllProducts(basket.Products))
-        {
-            Console.Write($"{i.Name} ");
-        }
-
-        Console.WriteLine();
-        Console.WriteLine($"All price: {OrderService.GetAllPrice(basket.Products)}");
-
-        Notification.SmsToMail(OrderService.User());
+        var order = OrderService.Instance.CreateOrder(basket);
+        Notification.SmsToPhoneNumber(order.User);
     }
 }
